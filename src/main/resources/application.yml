@@ -3,7 +3,7 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5432/twitter-clone
+    url: jdbc:postgresql://localhost:5432/twitterclone2
     username: postgres
     password: atuka123
   flyway:

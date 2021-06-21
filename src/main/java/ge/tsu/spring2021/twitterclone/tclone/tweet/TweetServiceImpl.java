@@ -46,8 +46,7 @@ public class TweetServiceImpl implements TweetService{
         if(c == 0) throw new RecordNotFoundException("Tweet with such id doesn't exist");
         return dslContext.select(Tables.TWEETS.TWEET_ID,Tables.TWEETS.TWEET_TITLE,Tables.TWEETS.TWEET_TEXT)
                 .from(Tables.TWEETS)
-                .where(Tables.TWEETS.USER_ID.equal(userId))
-                .and(Tables.TWEETS.TWEET_ID.equal((int) id))
+                .where(Tables.TWEETS.TWEET_ID.equal((int) id))
                 .fetchOne()
                 .into(Tweet.class);
     }
@@ -92,6 +91,7 @@ public class TweetServiceImpl implements TweetService{
         int c = dslContext.selectCount()
                 .from(Tables.TWEETS)
                 .where(Tables.TWEETS.TWEET_ID.equal((int) id))
+                .and(Tables.TWEETS.USER_ID.equal(userId))
                 .fetchOne()
                 .into(int.class);
         if(c == 0) throw new RecordNotFoundException("Tweet with such id doesn't exist");
@@ -99,7 +99,6 @@ public class TweetServiceImpl implements TweetService{
                 .set(Tables.TWEETS.TWEET_TITLE, newTweet.getTweet_title())
                 .set(Tables.TWEETS.TWEET_TEXT, newTweet.getTweet_text())
                 .where(Tables.TWEETS.TWEET_ID.equal((int) id))
-                .and(Tables.TWEETS.USER_ID.equal(userId))
                 .execute();
     }
 }

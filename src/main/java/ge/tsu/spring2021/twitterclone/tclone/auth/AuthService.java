@@ -48,19 +48,7 @@ public class AuthService {
             throw new RecordAlreadyExistsException("User with such email or username already exists");
         }
         else{
-            String userName = newUser.getUserName();
-            String password = newUser.getPassword();
-            String email = newUser.getEmail();
-            dslContext.insertInto(
-                    Tables.USERS,
-                    Tables.USERS.USER_NAME,
-                    Tables.USERS.PASSWORD,
-                    Tables.USERS.EMAIL
-            ).values(
-                    userName,
-                    bCryptPasswordEncoder.encode(password),
-                    email
-            ).execute();
+            System.out.println(bCryptPasswordEncoder.encode(newUser.getPassword()));
         }
     }
 }

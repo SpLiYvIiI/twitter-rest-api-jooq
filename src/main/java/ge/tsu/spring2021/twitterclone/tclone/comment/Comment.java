@@ -9,15 +9,12 @@ import javax.persistence.*;
 public class Comment {
     private long comment_id;
     private String comment_text;
-    private Tweet tweet;
-
     public Comment(){
 
     }
 
-    public Comment(String comment_text, Tweet tweet) {
+    public Comment(String comment_text) {
         this.comment_text = comment_text;
-        this.tweet = tweet;
     }
 
     public String getComment_text() {
@@ -26,14 +23,6 @@ public class Comment {
 
     public void setComment_text(String comment_text) {
         this.comment_text = comment_text;
-    }
-
-    public Tweet getTweet() {
-        return tweet;
-    }
-
-    public void setTweet(Tweet tweet) {
-        this.tweet = tweet;
     }
 
 

@@ -51,7 +51,7 @@ jooq {
                 logging = org.jooq.meta.jaxb.Logging.WARN
                 jdbc {
                     driver = 'org.postgresql.Driver'
-                    url = 'jdbc:postgresql://localhost:5432/twitter-clone'
+                    url = 'jdbc:postgresql://localhost:5432/twitterclone2'
                     user = 'postgres'
                     password = 'atuka123'
                 }

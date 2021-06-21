@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService{
         if(count == 0) throw new RecordNotFoundException("Follower with such id doesn't exist");
         return dslContext.select(Tables.USERS.USER_ID,Tables.USERS.USER_NAME, Tables.USERS.EMAIL)
                 .from(Tables.USERS)
-                .where(Tables.USERS.USER_ID.equal(id))
+                .where(Tables.USERS.USER_ID.equal((int) id))
                 .fetchOne()
                 .into(User.class);
     }
@@ -96,7 +96,7 @@ public class UserServiceImpl implements UserService{
         if(count == 0) throw new RecordNotFoundException("Followee with such id doesn't exist");
         return dslContext.select(Tables.USERS.USER_ID,Tables.USERS.USER_NAME, Tables.USERS.EMAIL)
                 .from(Tables.USERS)
-                .where(Tables.USERS.USER_ID.equal(id))
+                .where(Tables.USERS.USER_ID.equal((int) id))
                 .fetchOne()
                 .into(User.class);
     }
@@ -111,7 +111,7 @@ public class UserServiceImpl implements UserService{
         int c1 = dslContext
                 .selectCount()
                 .from(Tables.USERS)
-                .where(Tables.USERS.USER_ID.equal(following))
+                .where(Tables.USERS.USER_ID.equal((int) following))
                 .fetchOne(0, int.class);
         int c2 = dslContext
                 .selectCount()
@@ -155,7 +155,7 @@ public class UserServiceImpl implements UserService{
                 .set(Tables.USERS.EMAIL, user.getEmail())
                 .set(Tables.USERS.USER_NAME, user.getUser_name())
                 .set(Tables.USERS.PASSWORD , bCryptPasswordEncoder.encode(user.getPassword()))
-                .where(Tables.USERS.USER_ID.equal(userId))
+                .where(Tables.USERS.USER_ID.equal((int) userId))
                 .execute();
     }
     public List<Tweet> userTimeLine(String JwtString) {

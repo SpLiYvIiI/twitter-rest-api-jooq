@@ -14,7 +14,7 @@ public class CommentController {
     private CommentService commentService;
     @Autowired
     private JwtUtils jwtUtils;
-    @GetMapping("/api/tweets/{id}/comments/")
+    @GetMapping("/api/tweets/{id}/comments")
     public List<Comment> getComments(@PathVariable long id, HttpServletRequest request){
         return commentService.getComments(id,jwtUtils.getJwtString(request.getCookies()));
     }
@@ -22,7 +22,7 @@ public class CommentController {
     public Comment getComment(@PathVariable long tweetId, @PathVariable long commentId, HttpServletRequest request) throws RecordNotFoundException {
         return commentService.getComment(tweetId,commentId,jwtUtils.getJwtString(request.getCookies()));
     }
-    @PostMapping("/api/tweets/{id}/comments/")
+    @PostMapping("/api/tweets/{id}/comments")
     public void postComment(@PathVariable long id, @RequestBody Comment comment, HttpServletRequest request) throws RecordNotFoundException{
         commentService.postComment(id,comment,jwtUtils.getJwtString(request.getCookies()));
     }

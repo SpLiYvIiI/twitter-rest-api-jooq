@@ -21,22 +21,22 @@ public class CommentServiceImpl implements CommentService{
     public List<Comment> getComments(long id,String JwtToken){
         return dslContext.select(Tables.COMMENTS.COMMENT_ID,Tables.COMMENTS.COMMENT_TEXT)
                 .from(Tables.COMMENTS)
-                .where(Tables.COMMENTS.TWEET_ID.equal((int) id))
+                .where(Tables.COMMENTS.TWEET_ID.equal(id))
                 .fetch()
                 .into(Comment.class);
     }
     public Comment getComment(long tweetId,long commentId,String JwtToken) throws RecordNotFoundException{
         int c = dslContext.selectCount()
                 .from(Tables.COMMENTS)
-                .where(Tables.COMMENTS.TWEET_ID.equal((int) tweetId))
-                .and(Tables.COMMENTS.COMMENT_ID.equal(commentId))
+                .where(Tables.COMMENTS.TWEET_ID.equal(tweetId))
+                .and(Tables.COMMENTS.COMMENT_ID.equal((int) commentId))
                 .fetchOne()
                 .into(int.class);
         if(c == 0) throw new RecordNotFoundException("Comment with such comment or tweet id doesn't exist");
         return dslContext.select(Tables.COMMENTS.COMMENT_ID,Tables.COMMENTS.COMMENT_TEXT)
                 .from(Tables.COMMENTS)
-                .where(Tables.COMMENTS.TWEET_ID.equal((int) tweetId))
-                .and(Tables.COMMENTS.COMMENT_ID.equal(commentId))
+                .where(Tables.COMMENTS.TWEET_ID.equal(tweetId))
+                .and(Tables.COMMENTS.COMMENT_ID.equal((int) commentId))
                 .fetchOne()
                 .into(Comment.class);
     }
@@ -50,7 +50,7 @@ public class CommentServiceImpl implements CommentService{
                 .into(long.class);
         int c = dslContext.selectCount()
                 .from(Tables.COMMENTS)
-                .where(Tables.COMMENTS.TWEET_ID.equal((int) id))
+                .where(Tables.COMMENTS.TWEET_ID.equal(id))
                 .fetchOne()
                 .into(int.class);
         if(c == 0) throw new RecordNotFoundException("Tweet with such id doesn't exist");
@@ -61,7 +61,7 @@ public class CommentServiceImpl implements CommentService{
                 Tables.COMMENTS.USER_ID
         ).values(
                 comment.getComment_text(),
-                (int) id,
+                id,
                 userId
         ).execute();
     }
@@ -74,15 +74,15 @@ public class CommentServiceImpl implements CommentService{
                 .into(long.class);
         int c = dslContext.selectCount()
                 .from(Tables.COMMENTS)
-                .where(Tables.COMMENTS.TWEET_ID.equal((int) tweetId))
+                .where(Tables.COMMENTS.TWEET_ID.equal(tweetId))
                 .and(Tables.COMMENTS.USER_ID.equal(userId))
-                .and(Tables.COMMENTS.COMMENT_ID.equal(commentId))
+                .and(Tables.COMMENTS.COMMENT_ID.equal((int) commentId))
                 .fetchOne()
                 .into(int.class);
         if(c == 0) throw new RecordNotFoundException("Something went wrong");
         dslContext.delete(Tables.COMMENTS)
-                .where(Tables.COMMENTS.TWEET_ID.equal((int) tweetId))
-                .and(Tables.COMMENTS.COMMENT_ID.equal(commentId))
+                .where(Tables.COMMENTS.TWEET_ID.equal(tweetId))
+                .and(Tables.COMMENTS.COMMENT_ID.equal((int) commentId))
                 .and(Tables.COMMENTS.USER_ID.equal(userId))
                 .execute();
     }
@@ -95,9 +95,9 @@ public class CommentServiceImpl implements CommentService{
                 .into(long.class);
         int c = dslContext.selectCount()
                 .from(Tables.COMMENTS)
-                .where(Tables.COMMENTS.TWEET_ID.equal((int) tweetId))
+                .where(Tables.COMMENTS.TWEET_ID.equal(tweetId))
                 .and(Tables.COMMENTS.USER_ID.equal(userId))
-                .and(Tables.COMMENTS.COMMENT_ID.equal(commentId))
+                .and(Tables.COMMENTS.COMMENT_ID.equal((int) commentId))
                 .fetchOne()
                 .into(int.class);
         if(c == 0) throw new RecordNotFoundException("Something went wrong");
